@@ -13,7 +13,7 @@ import jwt
 defaultAlg = 'ES256'
 
 # Token expiration time must not be greater than 15777000 (6 months in seconds)
-maxExpTime = 15777000
+maxExpTime = 15771999
 
 def getIssuedAtAndExpTime():
     """
@@ -41,7 +41,7 @@ def getTeamID():
     """
     print("👤 Hint: This can be found at https://developer.apple.com/account/#/membership/")
     print("👤 Enter your Apple Developer Team ID: ")
-    teamID = raw_input()
+    teamID = input()
     if len(teamID) != 10:
         raise ValueError('Team ID is invalid')
     return teamID
@@ -52,7 +52,7 @@ def getKeyIdentifier():
     """
     print("🔑 Hint: This can be found at https://developer.apple.com/account/ios/authkey/")
     print("🔑 Enter your key identifier: ")
-    keyIdentifier = raw_input()
+    keyIdentifier = input()
     return keyIdentifier
 
 def createAuthToken():
@@ -69,8 +69,8 @@ def createAuthToken():
     }
     payload = {
         "iss": teamID,
-        "exp": int(issuedAt),
-        "iat": int(expirationTime)
+        "exp": int(expirationTime),
+        "iat": int(issuedAt)
     }
     return jwt.encode(payload, secret, algorithm=defaultAlg, headers=headers)
 
